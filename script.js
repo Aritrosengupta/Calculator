@@ -24,3 +24,4 @@ function operate(a,b,operator){
         case "/":return divide(a,b);
     }
 }
+const numbers=document.querySelector("#numbers");

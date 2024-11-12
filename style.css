@@ -1,0 +1,41 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+#container{
+    width: 800px;
+    height: 800px;
+    border: 8px solid black;
+    display: flex;
+    flex-direction: column;
+    background-color: gray;
+    
+
+    
+}
+#screen{
+    width: inherit;
+    height: 200px;
+    border: 2px solid black;
+    background-color: white;
+}
+.row{
+    height: 133px;
+    width: inherit;
+    display: flex;
+    gap: 20px;
+   
+}
+#calculations{
+    width: inherit;
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+}
+button{
+    flex-grow: 1;
+}
