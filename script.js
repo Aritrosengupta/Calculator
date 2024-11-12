@@ -24,4 +24,22 @@ function operate(a,b,operator){
         case "/":return divide(a,b);
     }
 }
-const numbers=document.querySelector("#numbers");
+
+const numbers=document.querySelectorAll('.numberKey');
+const screen=document.querySelector("#screen");
+let Value="";
+function Display(content){
+    let number=parseInt(content)
+    return number;
+}
+
+for(const number of numbers){
+    number.addEventListener('click',()=>{
+        
+        Value+=Display(number.textContent);
+        screen.textContent=Value;
+
+        console.log(number.textContent);
+    })
+}
+/*value is getting displayed as NAN*/

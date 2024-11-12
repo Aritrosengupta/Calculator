@@ -20,6 +20,12 @@ body{
     height: 200px;
     border: 2px solid black;
     background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: xx-large;
+    
+    
 }
 .row{
     height: 133px;
@@ -38,4 +44,5 @@ body{
 }
 button{
     flex-grow: 1;
+    font-size:larger;
 }
