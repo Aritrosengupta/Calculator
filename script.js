@@ -17,9 +17,10 @@ let num1=null;
 let num2=null;
 let equalitysign=false;
 let answer=0;
+let originalOperatorKey="";
 
 
-function operate(a,b,operator){
+function operated(a,b,operator){
     if(a==null || b==null) return 0;
     switch (operator){
         case "+":return add(a,b);
@@ -57,18 +58,25 @@ for(const number of numbers){
 }
 for(const operate of operators){
     operate.addEventListener('click',()=>{
-
-        if(equalitysign){
+        OperatorKey=operate.textContent;
+        
+       if(equalitysign){
             num1=parseInt(answer);
             answer="";
             equalitysign=false;
             Value="";
         }
-        else if(Value!==''){
+        else if(num1==null&& Value!==''){
             num1=parseInt(Value);
             Value="";
+        }else if(num1!=null && Value!=''){
+            num2=parseInt(Value);
+            answer=operated(num1,num2,originalOperatorKey);
+            screen.textContent=answer;
+            num1=answer;
+            Value='';
         }
-       OperatorKey=operate.textContent;
+       originalOperatorKey=operate.textContent;
         console.log(OperatorKey);
     })
 }
@@ -76,14 +84,14 @@ for(const operate of operators){
 equal.addEventListener('click',()=>{
     if(OperatorKey!="" && Value!=""){
         num2=parseInt(Value);
-        answer= operate(num1,num2,OperatorKey);
+        answer= operated(num1,num2,OperatorKey);
        screen.textContent=answer;
        equalitysign=true;
       
 
     }
     else if(OperatorKey!="" && Value==""){
-        answer=operate(num1,num1,OperatorKey);
+        answer=operated(num1,num1,OperatorKey);
         screen.textContent=answer;
         equalitysign=true;
        
@@ -100,4 +108,5 @@ function clearScreen(){
     answer=0;
     OperatorKey="";
     equalitysign=false;
+    originalOperatorKey='';
 }
