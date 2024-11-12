@@ -27,6 +27,7 @@ function operate(a,b,operator){
 
 const numbers=document.querySelectorAll('.numberKey');
 const screen=document.querySelector("#screen");
+const clear=document.querySelector('#clear');
 let Value="";
 function Display(content){
     let number=parseInt(content)
@@ -42,4 +43,11 @@ for(const number of numbers){
         console.log(number.textContent);
     })
 }
+
+
 /*value is getting displayed as NAN*/
+clear.addEventListener('click',clearScreen);
+function clearScreen(){
+    screen.textContent='';
+    Value="";
+}
