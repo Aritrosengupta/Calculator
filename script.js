@@ -12,9 +12,9 @@ function divide(a,b){
     return a/b;
 }
 
-let operator;
-let num1;
-let num2;
+let OperatorKey='';
+let num1=null;
+let num2='';
 
 function operate(a,b,operator){
     switch (operator){
@@ -28,6 +28,8 @@ function operate(a,b,operator){
 const numbers=document.querySelectorAll('.numberKey');
 const screen=document.querySelector("#screen");
 const clear=document.querySelector('#clear');
+const operators=document.querySelectorAll(".OperatorKey");
+const equal=document.querySelector("#equal");
 let Value="";
 function Display(content){
     let number=parseInt(content)
@@ -38,12 +40,36 @@ for(const number of numbers){
     number.addEventListener('click',()=>{
         
         Value+=Display(number.textContent);
+       
         screen.textContent=Value;
 
         console.log(number.textContent);
     })
+    
+}
+for(const operate of operators){
+    operate.addEventListener('click',()=>{
+        if(Value!=''){
+            num1=parseInt(Value);
+            Value="";
+        }
+       OperatorKey=operate.textContent;
+        console.log(OperatorKey);
+    })
 }
 
+equal.addEventListener('click',()=>{
+    if(OperatorKey!="" && Value!=""){
+        num2=parseInt(Value);
+       let answer= operate(num1,num2,OperatorKey);
+       screen.textContent=answer;
+
+    }
+    else if(OperatorKey!="" && Value==""){
+        let answer=operate(num1,num1,OperatorKey);
+        screen.textContent=answer;
+    }
+})
 
 /*value is getting displayed as NAN*/
 clear.addEventListener('click',clearScreen);
