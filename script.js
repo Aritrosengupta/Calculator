@@ -14,9 +14,13 @@ function divide(a,b){
 
 let OperatorKey='';
 let num1=null;
-let num2='';
+let num2=null;
+let equalitysign=false;
+let answer=0;
+
 
 function operate(a,b,operator){
+    if(a==null || b==null) return 0;
     switch (operator){
         case "+":return add(a,b);
         case"-":return subtract(a,b);
@@ -32,24 +36,35 @@ const operators=document.querySelectorAll(".OperatorKey");
 const equal=document.querySelector("#equal");
 let Value="";
 function Display(content){
-    let number=parseInt(content)
+    let number=0;
+    if(!isNaN(content)){
+        number=parseInt(content);
+    }
     return number;
 }
 
 for(const number of numbers){
     number.addEventListener('click',()=>{
-        
-        Value+=Display(number.textContent);
        
+        Value+=Display(number.textContent);
+       console.log(Value);
         screen.textContent=Value;
 
-        console.log(number.textContent);
+        // console.log(number.textContent);
+        
     })
     
 }
 for(const operate of operators){
     operate.addEventListener('click',()=>{
-        if(Value!=''){
+
+        if(equalitysign){
+            num1=parseInt(answer);
+            answer="";
+            equalitysign=false;
+            Value="";
+        }
+        else if(Value!==''){
             num1=parseInt(Value);
             Value="";
         }
@@ -61,13 +76,17 @@ for(const operate of operators){
 equal.addEventListener('click',()=>{
     if(OperatorKey!="" && Value!=""){
         num2=parseInt(Value);
-       let answer= operate(num1,num2,OperatorKey);
+        answer= operate(num1,num2,OperatorKey);
        screen.textContent=answer;
+       equalitysign=true;
+      
 
     }
     else if(OperatorKey!="" && Value==""){
-        let answer=operate(num1,num1,OperatorKey);
+        answer=operate(num1,num1,OperatorKey);
         screen.textContent=answer;
+        equalitysign=true;
+       
     }
 })
 
@@ -76,4 +95,9 @@ clear.addEventListener('click',clearScreen);
 function clearScreen(){
     screen.textContent='';
     Value="";
+    num1=null;
+    num2=null;
+    answer=0;
+    OperatorKey="";
+    equalitysign=false;
 }
