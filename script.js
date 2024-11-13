@@ -35,6 +35,7 @@ const screen=document.querySelector("#screen");
 const clear=document.querySelector('#clear');
 const operators=document.querySelectorAll(".OperatorKey");
 const equal=document.querySelector("#equal");
+const Delete=document.querySelector('#Delete');
 let Value="";
 function Display(content){
     let number=0;
@@ -43,6 +44,11 @@ function Display(content){
     }
     return number;
 }
+
+Delete.addEventListener('click',()=>{
+    Value=deleteLastNum(Value);
+})
+
 
 for(const number of numbers){
     NumberCheck(number);
@@ -61,7 +67,7 @@ function operatorCheck(operate){
         OperatorKey=operate.textContent;
         
        if(equalitysign){
-            num1=parseInt(answer);
+            num1=parseInt(Value);
             answer="";
             equalitysign=false;
             Value="";
@@ -112,13 +118,23 @@ function calculatingValue(){
         answer= operated(num1,num2,OperatorKey);
        screen.textContent=answer;
        equalitysign=true;
-      
+      Value=answer.toString();
+     
 
     }
     else if(OperatorKey!="" && Value==""){
         answer=operated(num1,num1,OperatorKey);
         screen.textContent=answer;
         equalitysign=true;
-       
+        Value=answer.toString();
+        
     }
+}
+
+function deleteLastNum(Value){
+
+    let string=Value.slice(0,Value.length-1);
+    
+    screen.textContent=string;
+    return string;
 }
