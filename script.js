@@ -45,18 +45,18 @@ function Display(content){
 }
 
 for(const number of numbers){
-    number.addEventListener('click',()=>{
-       
-        Value+=Display(number.textContent);
-       console.log(Value);
-        screen.textContent=Value;
-
-        // console.log(number.textContent);
-        
-    })
+    NumberCheck(number);
     
 }
 for(const operate of operators){
+        operatorCheck(operate);
+}
+
+equal.addEventListener('click',()=>{
+    calculatingValue();
+})
+
+function operatorCheck(operate){
     operate.addEventListener('click',()=>{
         OperatorKey=operate.textContent;
         
@@ -81,7 +81,32 @@ for(const operate of operators){
     })
 }
 
-equal.addEventListener('click',()=>{
+/*value is getting displayed as NAN*/
+clear.addEventListener('click',clearScreen);
+
+function NumberCheck(number){
+    number.addEventListener('click',()=>{
+       
+        Value+=Display(number.textContent);
+       console.log(Value);
+        screen.textContent=Value;
+
+        // console.log(number.textContent);
+        
+    })
+}
+
+function clearScreen(){
+    screen.textContent='';
+    Value="";
+    num1=null;
+    num2=null;
+    answer=0;
+    OperatorKey="";
+    equalitysign=false;
+    originalOperatorKey='';
+}
+function calculatingValue(){
     if(OperatorKey!="" && Value!=""){
         num2=parseInt(Value);
         answer= operated(num1,num2,OperatorKey);
@@ -96,17 +121,4 @@ equal.addEventListener('click',()=>{
         equalitysign=true;
        
     }
-})
-
-/*value is getting displayed as NAN*/
-clear.addEventListener('click',clearScreen);
-function clearScreen(){
-    screen.textContent='';
-    Value="";
-    num1=null;
-    num2=null;
-    answer=0;
-    OperatorKey="";
-    equalitysign=false;
-    originalOperatorKey='';
 }
