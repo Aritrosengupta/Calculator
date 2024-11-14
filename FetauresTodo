@@ -1,7 +1,8 @@
-1)Delete elements//Priority 2
+1)Delete elements//Priority 2 done
 2)Show previous and current //priority 6
-3)When there is a number and i click on another number new num should be shown//Priority 3
+3)When there is a number and i click on another number new num should be shown//Priority 3 //done
 4)create a button for changing number from positive to negative and vice versa //Priority 4
 5)Make these into functions //Priority 1 //done
 6)create a modulus button //Priorirty 5
 7)Make CSS Changes
+8)If no number is in second operator we can click on equal as many times to solve

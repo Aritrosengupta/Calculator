@@ -39,6 +39,7 @@ const Delete=document.querySelector('#Delete');
 let Value="";
 function Display(content){
     let number=0;
+    
     if(!isNaN(content)){
         number=parseInt(content);
     }
@@ -92,7 +93,12 @@ clear.addEventListener('click',clearScreen);
 
 function NumberCheck(number){
     number.addEventListener('click',()=>{
+       if(OperatorKey==="" && equalitysign==true){
+        Value='';
+        screen.textContent='';
+        equalitysign=false;
        
+       }
         Value+=Display(number.textContent);
        console.log(Value);
         screen.textContent=Value;
@@ -119,6 +125,9 @@ function calculatingValue(){
        screen.textContent=answer;
        equalitysign=true;
       Value=answer.toString();
+      OperatorKey='';
+      num1=null;
+      num2=null;
      
 
     }
@@ -127,6 +136,9 @@ function calculatingValue(){
         screen.textContent=answer;
         equalitysign=true;
         Value=answer.toString();
+        OperatorKey='';
+        num1=null;
+        num2=null;
         
     }
 }
