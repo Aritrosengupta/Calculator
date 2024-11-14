@@ -36,15 +36,12 @@ const clear=document.querySelector('#clear');
 const operators=document.querySelectorAll(".OperatorKey");
 const equal=document.querySelector("#equal");
 const Delete=document.querySelector('#Delete');
+const signChange=document.querySelector("#signchange");
 let Value="";
-function Display(content){
-    let number=0;
-    
-    if(!isNaN(content)){
-        number=parseInt(content);
-    }
-    return number;
-}
+
+signChange.addEventListener('click',()=>{
+    Value=PositiveNegativeConverter(Value);
+})
 
 Delete.addEventListener('click',()=>{
     Value=deleteLastNum(Value);
@@ -149,4 +146,20 @@ function deleteLastNum(Value){
     
     screen.textContent=string;
     return string;
+}
+
+function PositiveNegativeConverter(Value){
+    let numberChange=parseInt(Value)*-1;
+    Value=numberChange.toString();
+    screen.textContent=Value;
+    return Value;
+}
+function Display(content){
+    let number=0;
+    
+    if(!isNaN(content)){
+        number=parseInt(content);
+    }
+    
+    return number;
 }
