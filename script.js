@@ -37,7 +37,12 @@ const operators=document.querySelectorAll(".OperatorKey");
 const equal=document.querySelector("#equal");
 const Delete=document.querySelector('#Delete');
 const signChange=document.querySelector("#signchange");
+const mod=document.querySelector('#mod');
 let Value="";
+
+mod.addEventListener('click',()=>{
+    Value=ConverttoPercentage(Value);
+})
 
 signChange.addEventListener('click',()=>{
     Value=PositiveNegativeConverter(Value);
@@ -65,16 +70,16 @@ function operatorCheck(operate){
         OperatorKey=operate.textContent;
         
        if(equalitysign){
-            num1=parseInt(Value);
+            num1=parseFloat(Value);
             answer="";
             equalitysign=false;
             Value="";
         }
         else if(num1==null&& Value!==''){
-            num1=parseInt(Value);
+            num1=parseFloat(Value);
             Value="";
         }else if(num1!=null && Value!=''){
-            num2=parseInt(Value);
+            num2=parseFloat(Value);
             answer=operated(num1,num2,originalOperatorKey);
             screen.textContent=answer;
             num1=answer;
@@ -162,4 +167,11 @@ function Display(content){
     }
     
     return number;
+}
+
+function ConverttoPercentage(Value){
+    let mod=parseInt(Value)/100;
+    Value=mod.toString();
+    screen.textContent=Value;
+    return Value;
 }
