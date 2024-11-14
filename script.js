@@ -18,6 +18,8 @@ let num2=null;
 let equalitysign=false;
 let answer=0;
 let originalOperatorKey="";
+let Value="";
+let history=[];
 
 
 function operated(a,b,operator){
@@ -38,7 +40,8 @@ const equal=document.querySelector("#equal");
 const Delete=document.querySelector('#Delete');
 const signChange=document.querySelector("#signchange");
 const mod=document.querySelector('#mod');
-let Value="";
+const PreviousItem=document.querySelector("#Previousitem")
+
 
 mod.addEventListener('click',()=>{
     Value=ConverttoPercentage(Value);
@@ -59,6 +62,7 @@ for(const number of numbers){
 }
 for(const operate of operators){
         operatorCheck(operate);
+        
 }
 
 equal.addEventListener('click',()=>{
@@ -68,12 +72,16 @@ equal.addEventListener('click',()=>{
 function operatorCheck(operate){
     operate.addEventListener('click',()=>{
         OperatorKey=operate.textContent;
-        
+        history.push(OperatorKey);
+        DisplayHistory();
        if(equalitysign){
-            num1=parseFloat(Value);
+            num1=parseFloat(Value);      
             answer="";
             equalitysign=false;
             Value="";
+            
+            
+         
         }
         else if(num1==null&& Value!==''){
             num1=parseFloat(Value);
@@ -81,14 +89,17 @@ function operatorCheck(operate){
         }else if(num1!=null && Value!=''){
             num2=parseFloat(Value);
             answer=operated(num1,num2,originalOperatorKey);
-            screen.textContent=answer;
+            screen.textContent=answer;    
             num1=answer;
             Value='';
+          
         }
        originalOperatorKey=operate.textContent;
         console.log(OperatorKey);
+        
     })
 }
+
 
 /*value is getting displayed as NAN*/
 clear.addEventListener('click',clearScreen);
@@ -99,11 +110,14 @@ function NumberCheck(number){
         Value='';
         screen.textContent='';
         equalitysign=false;
+        ;
        
        }
         Value+=Display(number.textContent);
        console.log(Value);
         screen.textContent=Value;
+       history.push(number.textContent);
+       DisplayHistory();
 
         // console.log(number.textContent);
         
@@ -119,29 +133,38 @@ function clearScreen(){
     OperatorKey="";
     equalitysign=false;
     originalOperatorKey='';
+    history=[];
+    DisplayHistory();
+    
 }
 function calculatingValue(){
     if(OperatorKey!="" && Value!=""){
         num2=parseInt(Value);
         answer= operated(num1,num2,OperatorKey);
-       screen.textContent=answer;
-       equalitysign=true;
-      Value=answer.toString();
-      OperatorKey='';
-      num1=null;
-      num2=null;
-     
-
-    }
-    else if(OperatorKey!="" && Value==""){
-        answer=operated(num1,num1,OperatorKey);
         screen.textContent=answer;
         equalitysign=true;
         Value=answer.toString();
+        history.push(equal.textContent);
+        history.push(answer);
+        DisplayHistory();
         OperatorKey='';
         num1=null;
         num2=null;
-        
+     
+
+    }
+    else if(OperatorKey!="" && Value===""){
+        answer=operated(num1,num1,OperatorKey);
+        screen.textContent=answer;
+        equalitysign=true;
+        // Value=answer.toString();
+        // OperatorKey='';
+        // num1=null;
+        // num2=null;
+        history.push(equal.textContent);
+        history.push(answer);
+        DisplayHistory();
+        num1=answer;
     }
 }
 
@@ -174,4 +197,8 @@ function ConverttoPercentage(Value){
     Value=mod.toString();
     screen.textContent=Value;
     return Value;
+}
+
+function DisplayHistory(){
+    PreviousItem.textContent=history.join(" ");
 }
