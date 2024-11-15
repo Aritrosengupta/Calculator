@@ -20,6 +20,7 @@ let answer=0;
 let originalOperatorKey="";
 let Value="";
 let history=[];
+let DecimalCheck=false;
 
 
 function operated(a,b,operator){
@@ -41,8 +42,15 @@ const Delete=document.querySelector('#Delete');
 const signChange=document.querySelector("#signchange");
 const mod=document.querySelector('#mod');
 const PreviousItem=document.querySelector("#Previousitem")
+const DecimalPoint=document.querySelector("#decimalpoint")
 
 
+DecimalPoint.addEventListener('click',()=>{
+    if(DecimalCheck==false){
+        Value=DecimalPointer(Value);
+        screen.textContent=Value;
+    }
+})
 mod.addEventListener('click',()=>{
     Value=ConverttoPercentage(Value);
 })
@@ -73,6 +81,7 @@ function operatorCheck(operate){
     operate.addEventListener('click',()=>{
         OperatorKey=operate.textContent;
         history.push(OperatorKey);
+        DecimalCheck=false;
         DisplayHistory();
        if(equalitysign){
             num1=parseFloat(Value);      
@@ -110,7 +119,8 @@ function NumberCheck(number){
         Value='';
         screen.textContent='';
         equalitysign=false;
-        ;
+        history=[];
+        DisplayHistory();
        
        }
         Value+=Display(number.textContent);
@@ -135,11 +145,13 @@ function clearScreen(){
     originalOperatorKey='';
     history=[];
     DisplayHistory();
+    DecimalCheck=false;
     
 }
 function calculatingValue(){
+    DecimalCheck=false;
     if(OperatorKey!="" && Value!=""){
-        num2=parseInt(Value);
+        num2=parseFloat(Value);
         answer= operated(num1,num2,OperatorKey);
         screen.textContent=answer;
         equalitysign=true;
@@ -169,15 +181,17 @@ function calculatingValue(){
 }
 
 function deleteLastNum(Value){
-
-    let string=Value.slice(0,Value.length-1);
-    
+    let char=Value.charAt(Value.length-1);
+    let string=Value.slice(0,-1);
+    if(char==='.'){
+        DecimalCheck=false;
+    }
     screen.textContent=string;
     return string;
 }
 
 function PositiveNegativeConverter(Value){
-    let numberChange=parseInt(Value)*-1;
+    let numberChange=parseFloat(Value)*-1;
     Value=numberChange.toString();
     screen.textContent=Value;
     return Value;
@@ -201,4 +215,11 @@ function ConverttoPercentage(Value){
 
 function DisplayHistory(){
     PreviousItem.textContent=history.join(" ");
+}
+function DecimalPointer(Value){
+
+    Value+='.';
+    DecimalCheck=true;
+    history.push('.');
+    return Value;
 }
