@@ -127,7 +127,7 @@ function NumberCheck(number){
        console.log(Value);
         screen.textContent=Value;
        history.push(number.textContent);
-       DisplayHistory();
+       
 
         // console.log(number.textContent);
         
